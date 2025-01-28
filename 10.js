@@ -1,39 +1,21 @@
-class BankAccount {
-    constructor(accountHolder, balance = 0) {
-      this.accountHolder = accountHolder;
-      this.balance = balance;
+function* cumulativeSum(arr) {
+    let sum = 0;
+    for (let num of arr) {
+      sum += num;   // Add the current number to the cumulative sum
+      yield sum;    // Yield the current cumulative sum
     }
-  
-    deposit(amount) {
-      this.balance += amount;
-    }
-  
-    withdraw(amount) {
-      if (amount <= this.balance) {
-        this.balance -= amount;
-      } else {
-        console.log('Insufficient funds');
-      }
-    }
+    return sum;     // Return the final sum after the iteration is complete
   }
-  
-  function transfer(account, amount) {
-    if (this.balance >= amount) {
-      this.balance -= amount;
-      account.deposit(amount);
-    } else {
-      console.log('Insufficient funds for transfer');
-    }
+ 
+  // Example usage:
+  const arr = [1, 2, 3, 4, 5];
+  const gen = cumulativeSum(arr);
+ 
+  // Accessing yielded values
+  for (let value of gen) {
+    console.log('Cumulative sum:', value);
   }
-  
-  const abhi = new BankAccount('Abhi', 1000);
-  const raghu = new BankAccount('Raghu', 500);
-  
-  abhi.transfer = transfer;
-  raghu.transfer = transfer;
-  
-  abhi.transfer(raghu, 200);
-  
-  console.log(abhi.balance);  
-  console.log(raghu.balance);  
-  
+ 
+  // To access the final return value:
+  const { value: finalSum } = gen.next();
+  console.log('Final sum:', finalSum);

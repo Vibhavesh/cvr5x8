@@ -1,22 +1,25 @@
-const car = {
-    make: "Toyota",
-    model: "Corolla",
-    year: 2020,
-    getDetails: function() {
-        return `${this.year} ${this.make} ${this.model}`;
-    }
-};
-
-const electricCar = Object.create(car);
-electricCar.batteryCapacity = "75 kWh";
-electricCar.getBatteryInfo = function() {
-    return `Battery Capacity: ${this.batteryCapacity}`;
-};
-
-const myCar = Object.create(car);
-myCar.make = "Tesla";
-myCar.model = "Model 3";
-myCar.year = 2021;
-
-console.log(myCar.getDetails());
-console.log(electricCar.getBatteryInfo());
+const infiniteSequence = (maxSteps) => {
+    let current = 1;
+    let steps = 0;
+ 
+    return {
+      [Symbol.iterator]() {
+        return {
+          next() {
+            if (steps < maxSteps) {
+              steps++;
+              return { value: current++, done: false };
+            } else {
+              return { value: undefined, done: true };
+            }
+          }
+        };
+      }
+    };
+  };
+ 
+  const sequence = infiniteSequence(16);
+ 
+  for (const value of sequence) {
+    console.log(value);
+  }
