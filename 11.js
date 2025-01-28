@@ -1,17 +1,25 @@
-class Animal {
-    speak() {
-        console.log("Animal makes a sound.");
-    }
+function fetchData(url) {
+    let p = new Promise((resolve, reject) => {
+        if (url.includes("error")) {
+            reject("Error");
+        } else {
+            resolve("Data fetched successfully");
+        }
+    });
+    return p;
 }
 
-class Dog extends Animal {
-    speak() {
-        console.log("Woof!");
-    }
-}
+ fetchData("error").then((res) => {
+    console.log(res);
+})
+.catch((err) => {  
+    console.log(err);  
+});
 
-const animal = new Animal();
-const dog = new Dog();
 
-animal.speak(); 
-dog.speak(); 
+ fetchData("https://www.example.com").then((res) => {
+    console.log(res);  
+})
+.catch((err) => {
+    console.log(err);  
+});
